@@ -29,8 +29,8 @@ export default class CompositeDisposable {
 
   // Public: Construct an instance, optionally with one or more disposables
   constructor() {
-    this.disposables = new Set;
-    for (let disposable of arguments) { this.add(disposable); }
+    this.disposables = new Set();
+    for (const disposable of arguments) { this.add(disposable); }
   }
 
   // Public: Dispose all disposables added to this composite disposable.
@@ -56,7 +56,7 @@ export default class CompositeDisposable {
   //   methods.
   add() {
     if (!this.disposed) {
-      for (let disposable of arguments) { this.disposables.add(disposable); }
+      for (const disposable of arguments) { this.disposables.add(disposable); }
     }
   }
 
@@ -73,5 +73,5 @@ export default class CompositeDisposable {
   clear() {
     if (!this.disposed) { this.disposables.clear(); }
   }
-};
+}
 CompositeDisposable.initClass();

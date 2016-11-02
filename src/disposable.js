@@ -43,12 +43,12 @@ export default class Disposable {
       this.disposalAction = null;
     }
   }
-};
+}
 Disposable.initClass();
 
 if (Grim.includeDeprecatedAPIs) {
   Disposable.prototype.off = function() {
-    Grim.deprecate("Use ::dispose to cancel subscriptions instead of ::off");
+    Grim.deprecate('Use ::dispose to cancel subscriptions instead of ::off');
     return this.dispose();
   };
 }

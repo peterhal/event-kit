@@ -41,13 +41,15 @@ export default class Emitter {
 
   // Public: Clear out any existing subscribers.
   clear() {
-    return this.handlersByEventName = {};
+    this.handlersByEventName = {};
+    return this.handlersByEventName;
   }
 
   // Public: Unsubscribe all handlers.
   dispose() {
     this.handlersByEventName = null;
-    return this.disposed = true;
+    this.disposed = true;
+    return this.disposed;
   }
 
   /*
@@ -63,17 +65,17 @@ export default class Emitter {
   //   event name.
   //
   // Returns a {Disposable} on which `.dispose()` can be called to unsubscribe.
-  on(eventName, handler, unshift=false) {
-    let currentHandlers;
+  on(eventName, handler, unshift = false) {
     if (this.disposed) {
-      throw new Error("Emitter has been disposed");
+      throw new Error('Emitter has been disposed');
     }
 
     if (typeof handler !== 'function') {
-      throw new Error("Handler must be a function");
+      throw new Error('Handler must be a function');
     }
 
-    if (currentHandlers = this.handlersByEventName[eventName]) {
+    const currentHandlers = this.handlersByEventName[eventName];
+    if (currentHandlers) {
       if (unshift) {
         this.handlersByEventName[eventName] = [handler].concat(currentHandlers);
       } else {
@@ -109,12 +111,12 @@ export default class Emitter {
 
   // Private: Used by the disposable.
   off(eventName, handlerToRemove) {
-    let oldHandlers;
     if (this.disposed) { return; }
 
-    if (oldHandlers = this.handlersByEventName[eventName]) {
-      let newHandlers = [];
-      for (let handler of oldHandlers) {
+    const oldHandlers = this.handlersByEventName[eventName];
+    if (oldHandlers) {
+      const newHandlers = [];
+      for (const handler of oldHandlers) {
         if (handler !== handlerToRemove) {
           newHandlers.push(handler);
         }
@@ -135,8 +137,8 @@ export default class Emitter {
   emit(eventName, value) {
     const handlers = this.handlersByEventName[eventName];
     if (handlers != null) {
-      for (let handler of handlers) { handler(value); }
+      for (const handler of handlers) { handler(value); }
     }
   }
-};
+}
 Emitter.initClass();
