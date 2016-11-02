@@ -9,16 +9,16 @@ const fs = require('fs-extra');
 const path = require('path');
 
 const files = glob.sync('src/**/*.js');
-files.pop();
-console.log(files);
+files.pop(); // TODO: Handle event-kit.js
+
+const packageJson = JSON.parse(fs.readFileSync('package.json', 'utf-8'));
 const jsMetadata = joanna(files);
 const metadata = {
-  main: 'src/event-kit.js',
-  repository: 'myrepo',
-  version: '1.2.3',
+  repository: packageJson.repository.url,
+  version: packageJson.version,
   files: jsMetadata.files
 };
-console.log(JSON.stringify(metadata, null, 2));
+
 const api = tello.digest([metadata]);
 
 fs.writeFileSync('./api.json', JSON.stringify(api, null, 2))
