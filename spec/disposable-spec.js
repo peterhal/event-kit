@@ -16,11 +16,11 @@ describe("Disposable", function() {
     expect(disposable.disposalAction).toBe(disposalAction);
 
     disposable.dispose();
-    expect(disposalAction.callCount).toBe(1);
+    expect(disposalAction.calls.count()).toBe(1);
     expect(disposable.disposalAction).toBe(null);
 
     disposable.dispose();
-    return expect(disposalAction.callCount).toBe(1);
+    return expect(disposalAction.calls.count()).toBe(1);
   });
 
   return describe(".isDisposable(object)", () =>
