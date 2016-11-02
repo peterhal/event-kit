@@ -16,8 +16,9 @@ module.exports = (grunt) ->
             presets: ['es2015']
         dist:
             files:
-                '.coffee/src/disposable.js': 'src/disposable.js'
                 '.coffee/src/composite-disposable.js': 'src/composite-disposable.js'
+                '.coffee/src/disposable.js': 'src/disposable.js'
+                '.coffee/src/emitter.js': 'src/emitter.js'
 
     coffeelint:
       options:
