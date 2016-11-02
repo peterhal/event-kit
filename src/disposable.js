@@ -14,7 +14,7 @@ export class Disposable {
   //
   // Returns a {Boolean} indicating whether `object` is a valid `Disposable`.
   static isDisposable(object) {
-    return typeof __guard__(object, x => x.dispose) === "function";
+    return object != null && typeof object.dispose === 'function';
   }
 
   /*
@@ -37,7 +37,9 @@ export class Disposable {
   dispose() {
     if (!this.disposed) {
       this.disposed = true;
-      __guardMethod__(this, 'disposalAction', o => o.disposalAction());
+      if (typeof this.disposalAction === 'function') {
+        this.disposalAction();
+      }
       this.disposalAction = null;
     }
   }
@@ -49,15 +51,4 @@ if (Grim.includeDeprecatedAPIs) {
     Grim.deprecate("Use ::dispose to cancel subscriptions instead of ::off");
     return this.dispose();
   };
-}
-
-function __guard__(value, transform) {
-  return (typeof value !== 'undefined' && value !== null) ? transform(value) : undefined;
-}
-function __guardMethod__(obj, methodName, transform) {
-  if (typeof obj !== 'undefined' && obj !== null && typeof obj[methodName] === 'function') {
-    return transform(obj, methodName);
-  } else {
-    return undefined;
-  }
 }
