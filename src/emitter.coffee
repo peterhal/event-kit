@@ -1,4 +1,4 @@
-Disposable = require './disposable'
+Disposable = (require '../.coffee/src/disposable').Disposable
 
 # Essential: Utility class to be used when implementing event-based APIs that
 # allows for handlers registered via `::on` to be invoked with calls to

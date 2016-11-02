@@ -1,5 +1,5 @@
 CompositeDisposable = require '../src/composite-disposable'
-Disposable = require '../src/disposable'
+Disposable = (require '../.coffee/src/disposable').Disposable
 
 describe "CompositeDisposable", ->
   [disposable1, disposable2, disposable3] = []

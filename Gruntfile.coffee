@@ -10,6 +10,14 @@ module.exports = (grunt) ->
         dest: 'lib'
         ext: '.js'
 
+    babel:
+        options:
+            sourceMap: true
+            presets: ['es2015']
+        dist:
+            files:
+                '.coffee/src/disposable.js': 'src/disposable.js'
+
     coffeelint:
       options:
         no_empty_param_list:
@@ -41,9 +49,10 @@ module.exports = (grunt) ->
   grunt.loadNpmTasks('grunt-contrib-coffee')
   grunt.loadNpmTasks('grunt-shell')
   grunt.loadNpmTasks('grunt-coffeelint')
+  grunt.loadNpmTasks('grunt-babel')
   grunt.loadNpmTasks('grunt-atomdoc')
 
   grunt.registerTask 'clean', -> require('rimraf').sync('lib')
   grunt.registerTask('lint', ['coffeelint'])
-  grunt.registerTask('default', ['coffee', 'lint'])
-  grunt.registerTask('test', ['coffee', 'lint', 'shell:test'])
+  grunt.registerTask('default', ['babel', 'coffee', 'lint'])
+  grunt.registerTask('test', ['babel', 'coffee', 'lint', 'shell:test'])

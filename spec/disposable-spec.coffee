@@ -1,4 +1,4 @@
-Disposable = require '../src/disposable'
+Disposable = (require '../.coffee/src/disposable').Disposable
 
 describe "Disposable", ->
   it "does not try to execute disposalAction when it is not a function", ->
