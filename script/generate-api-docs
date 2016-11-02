@@ -1,0 +1,24 @@
+#!/usr/bin/env node
+
+'use strict';
+
+const tello = require('tello');
+const joanna = require('joanna');
+const glob = require('glob');
+const fs = require('fs-extra');
+const path = require('path');
+
+const files = glob.sync('src/**/*.js');
+files.pop();
+console.log(files);
+const jsMetadata = joanna(files);
+const metadata = {
+  main: 'src/event-kit.js',
+  repository: 'myrepo',
+  version: '1.2.3',
+  files: jsMetadata.files
+};
+console.log(JSON.stringify(metadata, null, 2));
+const api = tello.digest([metadata]);
+
+fs.writeFileSync('./api.json', JSON.stringify(api, null, 2))
