@@ -1,4 +1,4 @@
-import {Emitter} from '../src/emitter';
+import Emitter from '../src/emitter';
 
 describe("Emitter", function() {
   it("invokes the observer when the named event is emitted until disposed", function() {

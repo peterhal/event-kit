@@ -1,5 +1,5 @@
-import {CompositeDisposable} from '../src/composite-disposable';
-import {Disposable} from '../src/disposable';
+import CompositeDisposable from '../src/composite-disposable';
+import Disposable from '../src/disposable';
 
 describe("CompositeDisposable", function() {
   let [disposable1, disposable2, disposable3] = [];

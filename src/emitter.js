@@ -1,4 +1,4 @@
-import {Disposable} from './disposable';
+import Disposable from './disposable';
 
 // Essential: Utility class to be used when implementing event-based APIs that
 // allows for handlers registered via `::on` to be invoked with calls to
@@ -21,7 +21,7 @@ import {Disposable} from './disposable';
 //       @emitter.emit 'did-change-name', name
 //     @name
 // ```
-export class Emitter {
+export default class Emitter {
   static initClass() {
     this.prototype.disposed = false;
   }

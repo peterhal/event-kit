@@ -18,7 +18,7 @@
 //   destroy: ->
 //     @disposables.dispose()
 // ```
-export class CompositeDisposable {
+export default class CompositeDisposable {
   static initClass() {
     this.prototype.disposed = false;
   }

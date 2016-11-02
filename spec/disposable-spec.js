@@ -1,4 +1,4 @@
-import {Disposable} from '../src/disposable';
+import Disposable from '../src/disposable';
 
 describe("Disposable", function() {
   it("does not try to execute disposalAction when it is not a function", function() {

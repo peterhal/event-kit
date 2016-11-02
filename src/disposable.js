@@ -2,7 +2,7 @@ import Grim from 'grim';
 
 // Essential: A handle to a resource that can be disposed. For example,
 // {Emitter::on} returns disposables representing subscriptions.
-export class Disposable {
+export default class Disposable {
   static initClass() {
     this.prototype.disposed = false;
   }
