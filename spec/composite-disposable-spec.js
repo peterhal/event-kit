@@ -19,7 +19,7 @@ describe("CompositeDisposable", function() {
     return expect(disposable2.disposed).toBe(true);
   });
 
-  return it("allows disposables to be added and removed", function() {
+  it("allows disposables to be added and removed", function() {
     let composite = new CompositeDisposable;
     composite.add(disposable1);
     composite.add(disposable2, disposable3);

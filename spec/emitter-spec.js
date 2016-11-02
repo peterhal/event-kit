@@ -33,7 +33,7 @@ describe("Emitter", function() {
     return expect(() => emitter.on('foo', 'a')).toThrow();
   });
 
-  return it("allows all subsribers to be cleared out at once", function() {
+  it("allows all subsribers to be cleared out at once", function() {
     let emitter = new Emitter;
     let events = [];
 
@@ -43,4 +43,6 @@ describe("Emitter", function() {
 
     emitter.emit('foo', 1);
     emitter.emit('foo', 2);
-    return expect(events).toEqual([]);});});
+    return expect(events).toEqual([]);
+  });
+});

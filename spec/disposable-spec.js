@@ -23,7 +23,7 @@ describe("Disposable", function() {
     return expect(disposalAction.calls.count()).toBe(1);
   });
 
-  return describe(".isDisposable(object)", () =>
+  describe(".isDisposable(object)", () =>
     it("returns true if the object implements the ::dispose function", function() {
       expect(Disposable.isDisposable(new Disposable(function() {}))).toBe(true);
       expect(Disposable.isDisposable({dispose() {}})).toBe(true);
