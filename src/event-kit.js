@@ -1,3 +1,3 @@
-export let Emitter = require('./emitter');
-export let Disposable = require('./disposable');
-export let CompositeDisposable = require('./composite-disposable');
+export let Emitter = require('./emitter').Emitter;
+export let Disposable = require('./disposable').Disposable;
+export let CompositeDisposable = require('./composite-disposable').CompositeDisposable;
