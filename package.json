@@ -4,7 +4,10 @@
   "description": "Simple library for implementing and consuming evented APIs",
   "main": "./lib/event-kit",
   "scripts": {
-    "test": "jasmine JASMINE_CONFIG_PATH=spec/jasmine.json"
+    "prepublish": "npm run atomdoc",
+    "atomdoc": "scripts/generate-api-docs",
+    "test": "jasmine JASMINE_CONFIG_PATH=spec/jasmine.json",
+    "ci": "npm run test"
   },
   "repository": {
     "type": "git",
