@@ -19,6 +19,9 @@ module.exports = (grunt) ->
                 '.coffee/src/composite-disposable.js': 'src/composite-disposable.js'
                 '.coffee/src/disposable.js': 'src/disposable.js'
                 '.coffee/src/emitter.js': 'src/emitter.js'
+                '.coffee/spec/composite-disposable-spec.js': 'spec/composite-disposable-spec.js'
+                '.coffee/spec/disposable-spec.js': 'spec/disposable-spec.js'
+                '.coffee/spec/emitter-spec.js': 'spec/emitter-spec.js'
 
     coffeelint:
       options:
@@ -35,7 +38,7 @@ module.exports = (grunt) ->
 
     shell:
       test:
-        command: 'node node_modules/.bin/jasmine-focused --coffee --captureExceptions --forceexit spec'
+        command: 'node node_modules/.bin/jasmine-focused --captureExceptions --forceexit .coffee/spec'
         options:
           stdout: true
           stderr: true
