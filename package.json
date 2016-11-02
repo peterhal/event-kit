@@ -5,7 +5,7 @@
   "main": "./lib/event-kit",
   "scripts": {
     "prepublish": "npm run lint && npm run atomdoc",
-    "atomdoc": "scripts/generate-api-docs",
+    "atomdoc": "script/generate-api-docs",
     "lint": "eslint .",
     "fix-all": "eslint --fix .",
     "test": "npm run lint && jasmine JASMINE_CONFIG_PATH=spec/jasmine.json",
