@@ -17,6 +17,7 @@ module.exports = (grunt) ->
         dist:
             files:
                 '.coffee/src/disposable.js': 'src/disposable.js'
+                '.coffee/src/composite-disposable.js': 'src/composite-disposable.js'
 
     coffeelint:
       options:

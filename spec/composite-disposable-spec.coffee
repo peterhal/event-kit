@@ -1,4 +1,4 @@
-CompositeDisposable = require '../src/composite-disposable'
+CompositeDisposable = (require '../.coffee/src/composite-disposable').CompositeDisposable
 Disposable = (require '../.coffee/src/disposable').Disposable
 
 describe "CompositeDisposable", ->
