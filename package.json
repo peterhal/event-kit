@@ -2,14 +2,16 @@
   "name": "event-kit",
   "version": "1.5.0",
   "description": "Simple library for implementing and consuming evented APIs",
-  "main": "./src/event-kit",
+  "main": "./lib/event-kit",
   "scripts": {
-    "prepublish": "npm run lint && npm run atomdoc",
     "atomdoc": "script/generate-api-docs",
     "flow": "flow; test $? -eq 0 -o $? -eq 2",
     "lint": "eslint .",
     "fix-all": "eslint --fix .",
-    "test": "npm run lint && jasmine JASMINE_CONFIG_PATH=spec/jasmine.json",
+    "build": "babel src -d lib",
+    "clean": "rm -rf lib api.json node_modules",
+    "prepublish": "npm run lint && npm run flow && npm run atomdoc && npm run build",
+    "test": "npm run lint && npm run flow && jasmine JASMINE_CONFIG_PATH=spec/jasmine.json",
     "ci": "npm run test"
   },
   "repository": {
@@ -30,6 +32,7 @@
     "grim": "^1.2.1"
   },
   "devDependencies": {
+    "babel-cli": "^6.18.0",
     "babel-core": "^6.18.2",
     "babel-eslint": "7.1.0",
     "babel-plugin-transform-flow-strip-types": "^6.18.0",
