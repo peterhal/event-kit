@@ -1,7 +1,11 @@
 spec
 script
 src
+.babelrc
 .npmignore
+.eslintignore
+.eslintrc.js
+.flowconfig
 .DS_Store
 npm-debug.log
 .travis.yml
