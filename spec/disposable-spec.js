@@ -1,8 +1,11 @@
+// @flow
+
 import Disposable from '../src/disposable';
 
 describe('Disposable', () => {
   it('does not try to execute disposalAction when it is not a function', () => {
     const disposalAction = {};
+    // $FlowIgnore - Ignore mis-use of API
     const disposable = new Disposable(disposalAction);
     expect(disposable.disposalAction).toBe(disposalAction);
 
@@ -12,6 +15,7 @@ describe('Disposable', () => {
 
   it('dereferences the disposalAction once dispose() is invoked', () => {
     const disposalAction = jasmine.createSpy('dummy');
+    // $FlowIssue - Flow doesn't support Functions with members
     const disposable = new Disposable(disposalAction);
     expect(disposable.disposalAction).toBe(disposalAction);
 

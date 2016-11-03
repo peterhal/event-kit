@@ -1,3 +1,5 @@
+// @flow
+
 import Emitter from '../src/emitter';
 
 describe('Emitter', () => {
@@ -30,7 +32,9 @@ describe('Emitter', () => {
 
   it("throws an exception when subscribing with a callback that isn't a function", () => {
     const emitter = new Emitter();
+    // $FlowIgnore - Ignore mis-use of API
     expect(() => emitter.on('foo', null)).toThrow();
+    // $FlowIgnore - Ignore mis-use of API
     expect(() => emitter.on('foo', 'a')).toThrow();
   });
 

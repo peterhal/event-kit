@@ -1,11 +1,12 @@
+// @flow
+
 import Grim from 'grim';
 
 // Essential: A handle to a resource that can be disposed. For example,
 // {Emitter::on} returns disposables representing subscriptions.
 export default class Disposable {
-  static initClass() {
-    this.prototype.disposed = false;
-  }
+  disposalAction: mixed;
+  disposed: boolean;
 
   // Public: Ensure that `object` correctly implements the `Disposable`
   // contract.
@@ -13,7 +14,7 @@ export default class Disposable {
   // * `object` An {Object} you want to perform the check against.
   //
   // Returns a {Boolean} indicating whether `object` is a valid `Disposable`.
-  static isDisposable(object) {
+  static isDisposable(object: any): boolean {
     return object != null && typeof object.dispose === 'function';
   }
 
@@ -25,8 +26,9 @@ export default class Disposable {
   //
   // * `disposalAction` A {Function} to call when {::dispose} is called for the
   //   first time.
-  constructor(disposalAction) {
+  constructor(disposalAction: Function) {
     this.disposalAction = disposalAction;
+    this.disposed = false;
   }
 
   // Public: Perform the disposal action, indicating that the resource associated
@@ -44,9 +46,9 @@ export default class Disposable {
     }
   }
 }
-Disposable.initClass();
 
 if (Grim.includeDeprecatedAPIs) {
+  // $FlowIgnore
   Disposable.prototype.off = function() {
     Grim.deprecate('Use ::dispose to cancel subscriptions instead of ::off');
     return this.dispose();

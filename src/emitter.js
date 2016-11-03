@@ -1,4 +1,9 @@
+// @flow
+
 import Disposable from './disposable';
+import invariant from 'assert';
+
+type Handler = (value: mixed) => mixed;
 
 // Essential: Utility class to be used when implementing event-based APIs that
 // allows for handlers registered via `::on` to be invoked with calls to
@@ -22,9 +27,8 @@ import Disposable from './disposable';
 //     @name
 // ```
 export default class Emitter {
-  static initClass() {
-    this.prototype.disposed = false;
-  }
+  disposed: boolean;
+  handlersByEventName: ?{ [key: string]: Array<Handler>};
 
   /*
   Section: Construction and Destruction
@@ -36,6 +40,7 @@ export default class Emitter {
   // @emitter = new Emitter()
   // ```
   constructor() {
+    this.disposed = false;
     this.clear();
   }
 
@@ -46,7 +51,7 @@ export default class Emitter {
   }
 
   // Public: Unsubscribe all handlers.
-  dispose() {
+  dispose(): boolean {
     this.handlersByEventName = null;
     this.disposed = true;
     return this.disposed;
@@ -65,7 +70,7 @@ export default class Emitter {
   //   event name.
   //
   // Returns a {Disposable} on which `.dispose()` can be called to unsubscribe.
-  on(eventName, handler, unshift = false) {
+  on(eventName: string, handler: Handler, unshift: boolean = false) {
     if (this.disposed) {
       throw new Error('Emitter has been disposed');
     }
@@ -74,12 +79,13 @@ export default class Emitter {
       throw new Error('Handler must be a function');
     }
 
+    invariant(this.handlersByEventName != null);
     const currentHandlers = this.handlersByEventName[eventName];
     if (currentHandlers) {
       if (unshift) {
-        this.handlersByEventName[eventName] = [handler].concat(currentHandlers);
+        this.handlersByEventName[eventName] = [handler, ...currentHandlers];
       } else {
-        this.handlersByEventName[eventName] = currentHandlers.concat(handler);
+        this.handlersByEventName[eventName] = [...currentHandlers, handler];
       }
     } else {
       this.handlersByEventName[eventName] = [handler];
@@ -105,14 +111,15 @@ export default class Emitter {
   //   event name.
   //
   // Returns a {Disposable} on which `.dispose()` can be called to unsubscribe.
-  preempt(eventName, handler) {
+  preempt(eventName: string, handler: Handler) {
     return this.on(eventName, handler, true);
   }
 
   // Private: Used by the disposable.
-  off(eventName, handlerToRemove) {
+  off(eventName: string, handlerToRemove: Handler) {
     if (this.disposed) { return; }
 
+    invariant(this.handlersByEventName != null);
     const oldHandlers = this.handlersByEventName[eventName];
     if (oldHandlers) {
       const newHandlers = [];
@@ -134,11 +141,11 @@ export default class Emitter {
   // * `eventName` The name of the event to emit. Handlers registered with {::on}
   //   for the same name will be invoked.
   // * `value` Callbacks will be invoked with this value as an argument.
-  emit(eventName, value) {
+  emit(eventName: string, value: mixed) {
+    invariant(this.handlersByEventName != null);
     const handlers = this.handlersByEventName[eventName];
     if (handlers != null) {
       for (const handler of handlers) { handler(value); }
     }
   }
 }
-Emitter.initClass();

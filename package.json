@@ -2,7 +2,7 @@
   "name": "event-kit",
   "version": "1.5.0",
   "description": "Simple library for implementing and consuming evented APIs",
-  "main": "./lib/event-kit",
+  "main": "./src/event-kit",
   "scripts": {
     "prepublish": "npm run lint && npm run atomdoc",
     "atomdoc": "script/generate-api-docs",
@@ -26,6 +26,7 @@
     }
   ],
   "dependencies": {
+    "assert": "^1.4.1",
     "grim": "^1.2.1"
   },
   "devDependencies": {

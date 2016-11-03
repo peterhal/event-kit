@@ -1,3 +1,9 @@
+// @flow
+
+import invariant from 'assert';
+
+export type IDisposable = {dispose: () => mixed};
+
 // Essential: An object that aggregates multiple {Disposable} instances together
 // into a single disposable, so they can all be disposed as a group.
 //
@@ -19,18 +25,18 @@
 //     @disposables.dispose()
 // ```
 export default class CompositeDisposable {
-  static initClass() {
-    this.prototype.disposed = false;
-  }
+  disposed: boolean;
+  disposables: ?Set<IDisposable>;
 
   /*
   Section: Construction and Destruction
   */
 
   // Public: Construct an instance, optionally with one or more disposables
-  constructor() {
+  constructor(...disposables: Array<IDisposable>) {
+    this.disposed = false;
     this.disposables = new Set();
-    for (const disposable of arguments) { this.add(disposable); }
+    for (const disposable of disposables) { this.add(disposable); }
   }
 
   // Public: Dispose all disposables added to this composite disposable.
@@ -39,6 +45,7 @@ export default class CompositeDisposable {
   dispose() {
     if (!this.disposed) {
       this.disposed = true;
+      invariant(this.disposables != null);
       this.disposables.forEach(disposable => disposable.dispose());
       this.disposables = null;
     }
@@ -54,9 +61,10 @@ export default class CompositeDisposable {
   //
   // * `...disposables` {Disposable} instances or any objects with `.dispose()`
   //   methods.
-  add() {
+  add(...disposables: Array<IDisposable>) {
     if (!this.disposed) {
-      for (const disposable of arguments) { this.disposables.add(disposable); }
+      invariant(this.disposables != null);
+      for (const disposable of disposables) { this.disposables.add(disposable); }
     }
   }
 
@@ -64,14 +72,17 @@ export default class CompositeDisposable {
   //
   // * `disposable` {Disposable} instance or any object with a `.dispose()`
   //   method.
-  remove(disposable) {
+  remove(disposable: IDisposable) {
+    invariant(this.disposables != null);
     if (!this.disposed) { this.disposables.delete(disposable); }
   }
 
   // Public: Clear all disposables. They will not be disposed by the next call
   // to dispose.
   clear() {
-    if (!this.disposed) { this.disposables.clear(); }
+    if (!this.disposed) {
+      invariant(this.disposables != null);
+      this.disposables.clear();
+    }
   }
 }
-CompositeDisposable.initClass();

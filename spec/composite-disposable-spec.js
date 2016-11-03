@@ -1,3 +1,5 @@
+// @flow
+
 import CompositeDisposable from '../src/composite-disposable';
 import Disposable from '../src/disposable';
 
@@ -5,8 +7,11 @@ describe('CompositeDisposable', () => {
   let [disposable1, disposable2, disposable3] = [];
 
   beforeEach(() => {
+    // $FlowIgnore - Ignore mis-use of API
     disposable1 = new Disposable();
+    // $FlowIgnore - Ignore mis-use of API
     disposable2 = new Disposable();
+    // $FlowIgnore - Ignore mis-use of API
     disposable3 = new Disposable();
   });
 
