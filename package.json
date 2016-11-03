@@ -6,6 +6,7 @@
   "scripts": {
     "prepublish": "npm run lint && npm run atomdoc",
     "atomdoc": "script/generate-api-docs",
+    "flow": "flow; test $? -eq 0 -o $? -eq 2",
     "lint": "eslint .",
     "fix-all": "eslint --fix .",
     "test": "npm run lint && jasmine JASMINE_CONFIG_PATH=spec/jasmine.json",
@@ -30,6 +31,7 @@
   "devDependencies": {
     "babel-core": "^6.18.2",
     "babel-eslint": "7.1.0",
+    "babel-plugin-transform-flow-strip-types": "^6.18.0",
     "babel-preset-es2015": "^6.18.0",
     "eslint": "3.9.1",
     "eslint-plugin-babel": "3.3.0",
@@ -37,6 +39,7 @@
     "eslint-plugin-jasmine": "1.8.1",
     "eslint-plugin-prefer-object-spread": "1.1.0",
     "eslint-plugin-react": "6.4.1",
+    "flow-bin": "^0.34.0",
     "fs-extra": "^1.0.0",
     "glob": "^7.1.1",
     "jasmine": "^2.5.2",
